@@ -12,6 +12,7 @@ define view entity ZITEMS_I_1241
     ReleaseDate,
     DiscontinuedDate,
     Price,
+    Currency,
     @Semantics.quantity.unitOfMeasure: 'UOM'
     Height,
     @Semantics.quantity.unitOfMeasure: 'UOM'

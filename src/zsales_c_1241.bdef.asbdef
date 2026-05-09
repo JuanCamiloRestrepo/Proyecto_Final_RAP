@@ -24,5 +24,7 @@ define behavior for ZITEMS_C_1241 alias Item
   use update;
   use delete;
 
+  use action releaseItem;
+
   use association _Sales { with draft; }
 }

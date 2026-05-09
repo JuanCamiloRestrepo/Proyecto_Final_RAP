@@ -16,8 +16,11 @@ annotate entity ZITEMS_C_1241
     @UI.hidden: true
     SalesUUID;
     
-    @UI: { lineItem: [{ position: 10, importance: #HIGH }],
-           identification: [{ position: 10 }] }
+    @UI: { lineItem: [{ position: 10, importance: #HIGH },
+                      { position: 10, importance: #HIGH, type: #FOR_ACTION, dataAction: 'releaseItem', label: 'Release Item' }],
+           identification: [{ position: 10, label: 'SalesID' },
+                            { position: 10, type: #FOR_ACTION, dataAction: 'releaseItem', label: 'Release Item' }],
+           selectionField: [{ position: 10 }] }
     ItemID;
     
     @UI: { lineItem: [{ position: 20, importance: #HIGH }],
@@ -39,6 +42,9 @@ annotate entity ZITEMS_C_1241
     @UI: { lineItem: [{ position: 60, importance: #HIGH }],
            identification: [{ position: 60 }] }
     Price;
+    
+    @UI.hidden: true
+    Currency;
     
     @UI: { lineItem: [{ position: 70, importance: #HIGH }],
            identification: [{ position: 70 }] }

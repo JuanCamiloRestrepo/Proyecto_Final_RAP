@@ -20,6 +20,7 @@ authorization master ( instance, global )
   field ( numbering : managed, readonly ) SalesUUID;
   field ( readonly ) SalesID,
   CreatedOn,
+  OrderStatus,
   LocalCreatedAt,
   LocalCreatedBy,
   LocalLastChangedAt,
@@ -29,6 +30,7 @@ authorization master ( instance, global )
 
   determination setSalesOrder on save { create; }
   determination setStatusToOpen on modify { create; }
+  determination setCreationDate on modify { create; }
 
   action ( features : instance, authorization : update ) rejectOrder result [1] $self;
 
@@ -80,23 +82,26 @@ etag master LocalLastChangedAt
   field ( readonly ) SalesUUID, ItemID, ReleaseDate;
 
   determination setItemID on save { create; }
-  determination setReleaseDate on save { create; }
+
+  action ( features : instance, authorization : update ) releaseItem result [1] $self;
 
   mapping for zitems_1241
     {
-      ItemUUID         = item_uuid;
-      ItemID           = item_id;
-      SalesUUID        = parent_uuid;
-      Name             = name;
-      Description      = description;
-      ReleaseDate      = releasedate;
-      DiscontinuedDate = discontinueddate;
-      Price            = price;
-      Height           = height;
-      Width            = width;
-      Depth            = depth;
-      Quantity         = quantity;
-      uom              = unitofmeasure;
+      ItemUUID           = item_uuid;
+      ItemID             = item_id;
+      SalesUUID          = parent_uuid;
+      Name               = name;
+      Description        = description;
+      ReleaseDate        = releasedate;
+      DiscontinuedDate   = discontinueddate;
+      Price              = price;
+      Currency           = currency;
+      Height             = height;
+      Width              = width;
+      Depth              = depth;
+      Quantity           = quantity;
+      uom                = unitofmeasure;
+      LocalLastChangedAt = local_last_changed_at;
     }
 
 }
