@@ -1,0 +1,5 @@
+@EndUserText.label: 'Sales - Service Definition'
+define service ZSD_SALES_1241 {
+  expose ZSALES_C_1241;
+  expose ZITEMS_C_1241;
+}

@@ -1,0 +1,69 @@
+@Metadata.layer: #CORE
+@UI: { headerInfo: {
+           typeName: 'Sale',
+           typeNamePlural: 'Sales',
+           title: {
+               type: #STANDARD,
+               value: 'SalesID' } },
+       presentationVariant: [{ sortOrder: [{ by: 'SalesID', direction: #DESC }],
+                               visualizations: [{ type: #AS_LINEITEM }] }] }
+annotate entity ZSALES_C_1241 with
+{
+  @UI.facet: [{ id: 'Sales Order', purpose: #STANDARD, type: #IDENTIFICATION_REFERENCE, label: 'Sales Order', position: 10 },
+              { id: 'Items', purpose: #STANDARD, type: #LINEITEM_REFERENCE, label: 'Items', position: 20, targetElement: '_Items' }]
+  
+  @UI.hidden: true
+  SalesUUID;            
+              
+  @UI: { lineItem: [{ position: 10, importance: #HIGH },
+                 { position: 10, importance: #HIGH, type: #FOR_ACTION, dataAction: 'rejectOrder', label: 'Reject Order' }],
+         identification: [{ position: 10, label: 'SalesID' },
+                          { position: 10, type: #FOR_ACTION, dataAction: 'rejectOrder', label: 'Reject Order' }],
+         selectionField: [{ position: 10 }] }
+  SalesID;
+
+  @UI: { lineItem: [{ position: 20, importance: #HIGH }],
+         identification: [{ position: 20 }],
+         selectionField: [{ position: 20 }] }
+  Email;
+
+  @UI: { lineItem: [{ position: 30, importance: #HIGH }],
+         identification: [{ position: 30 }],
+         selectionField: [{ position: 30 }] }
+  FirstName;
+
+  @UI: { lineItem: [{ position: 40, importance: #HIGH }],
+         identification: [{ position: 40 }],
+         selectionField: [{ position: 40 }] }
+  LastName;
+
+  @UI: { lineItem: [{ position: 50, importance: #HIGH }],
+         identification: [{ position: 50 }] }
+  Country;
+
+  @UI: { lineItem: [{ position: 60, importance: #HIGH }],
+         identification: [{ position: 60 }] }
+  CreatedOn;
+
+  @UI: { lineItem: [{ position: 70, importance: #HIGH }],
+         identification: [{ position: 70 }] }
+  DeliveryDate;
+
+  @UI: { lineItem: [{ position: 80, importance: #HIGH }],
+         identification: [{ position: 80 }] }
+  OrderStatus;
+
+  @UI: { lineItem: [{ position: 90, importance: #HIGH }],
+         identification: [{ position: 90 }] }
+  ImageUrl;
+  
+  @UI.hidden: true
+  LocalCreatedBy;
+  @UI.hidden: true
+  LocalCreatedAt;
+  @UI.hidden: true
+  LocalLastChangedBy;
+  @UI.hidden: true
+  LocalLastChangedAt;
+
+}

@@ -1,0 +1,102 @@
+managed;
+strict ( 2 );
+with draft;
+
+define behavior for ZSALES_R_1241 alias Sale
+implementation in class zbp_sales_1241 unique
+persistent table zsalesorder_1241
+draft table zsalesor_1241_d
+lock master
+total etag LastChangedAt
+etag master LocalLastChangedAt
+authorization master ( instance, global )
+{
+  create;
+  update;
+  delete;
+
+  association _Items { create ( features : instance, authorization : update ); with draft; }
+
+  field ( numbering : managed, readonly ) SalesUUID;
+  field ( readonly ) SalesID,
+  CreatedOn,
+  LocalCreatedAt,
+  LocalCreatedBy,
+  LocalLastChangedAt,
+  LocalLastChangedBy;
+
+  field ( mandatory ) Email;
+
+  determination setSalesOrder on save { create; }
+  determination setStatusToOpen on modify { create; }
+
+  action ( features : instance, authorization : update ) rejectOrder result [1] $self;
+
+  draft action edit;
+  draft action activate optimized;
+  draft action discard;
+  draft action resume with additional implementation;
+
+  draft determine action prepare
+  {
+
+  }
+
+  mapping for zsalesorder_1241
+    {
+      SalesUUID          = sales_uuid;
+      SalesID            = sales_id;
+      Email              = email;
+      FirstName          = firstname;
+      LastName           = lastname;
+      Country            = country;
+      CreatedOn          = createdon;
+      DeliveryDate       = deliverydate;
+      OrderStatus        = orderstatus;
+      ImageUrl           = imageurl;
+      LocalCreatedBy     = local_created_by;
+      LocalCreatedAt     = local_created_at;
+      LocalLastChangedBy = local_last_changed_by;
+      LocalLastChangedAt = local_last_changed_at;
+      LastChangedAt      = last_changed_at;
+    }
+
+}
+
+define behavior for ZITEMS_R_1241 alias Item
+implementation in class zbp_items_1241 unique
+persistent table zitems_1241
+draft table zitems_1241_d
+lock dependent by _Sales
+authorization dependent by _Sales
+etag master LocalLastChangedAt
+{
+  update;
+  delete;
+
+  association _Sales { with draft; }
+
+  field ( numbering : managed, readonly ) ItemUUID;
+  field ( readonly ) SalesUUID, ItemID, ReleaseDate;
+
+  determination setItemID on save { create; }
+  determination setReleaseDate on save { create; }
+
+  mapping for zitems_1241
+    {
+      ItemUUID         = item_uuid;
+      ItemID           = item_id;
+      SalesUUID        = parent_uuid;
+      Name             = name;
+      Description      = description;
+      ReleaseDate      = releasedate;
+      DiscontinuedDate = discontinueddate;
+      Price            = price;
+      Height           = height;
+      Width            = width;
+      Depth            = depth;
+      Quantity         = quantity;
+      uom              = unitofmeasure;
+    }
+
+}

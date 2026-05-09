@@ -1,0 +1,28 @@
+projection;
+strict ( 2 );
+use draft;
+
+define behavior for ZSALES_C_1241 alias Sale
+{
+  use create;
+  use update;
+  use delete;
+
+  use action rejectOrder;
+
+  use action edit;
+  use action activate;
+  use action discard;
+  use action resume;
+  use action prepare;
+
+  use association _Items { create; with draft; }
+}
+
+define behavior for ZITEMS_C_1241 alias Item
+{
+  use update;
+  use delete;
+
+  use association _Sales { with draft; }
+}
