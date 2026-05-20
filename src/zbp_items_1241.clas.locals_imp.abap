@@ -7,7 +7,7 @@ CLASS lhc_Item DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS releaseItem FOR MODIFY
       IMPORTING keys FOR ACTION Item~releaseItem RESULT result.
 
-    METHODS setItemID FOR DETERMINE ON SAVE
+    METHODS setItemID FOR DETERMINE ON MODIFY
       IMPORTING keys FOR Item~setItemID.
     METHODS discontinueItem FOR MODIFY
       IMPORTING keys FOR ACTION Item~discontinueItem RESULT result.
@@ -38,9 +38,8 @@ CLASS lhc_Item IMPLEMENTATION.
   METHOD releaseItem.
 
     READ ENTITIES OF zsales_r_1241 IN LOCAL MODE
-    ENTITY Sale
-    BY \_Items
-    FIELDS ( SalesUUID ReleaseDate )
+    ENTITY Item
+    FIELDS ( ReleaseDate )
     WITH CORRESPONDING #( keys )
     RESULT DATA(items).
 
@@ -52,7 +51,7 @@ CLASS lhc_Item IMPLEMENTATION.
     ENTITY Item
     UPDATE
     FIELDS ( ReleaseDate )
-    WITH VALUE #( FOR item IN items ( SalesUUID   = item-SalesUUID
+    WITH VALUE #( FOR item IN items ( %tky        = item-%tky
                                       ReleaseDate = cl_abap_context_info=>get_system_date(  ) ) ).
 
   ENDMETHOD.
@@ -60,8 +59,7 @@ CLASS lhc_Item IMPLEMENTATION.
   METHOD setItemID.
 
     READ ENTITIES OF zsales_r_1241 IN LOCAL MODE
-    ENTITY Sale
-    BY \_Items
+    ENTITY Item
     FIELDS ( ItemID )
     WITH CORRESPONDING #( keys )
     RESULT DATA(items).
@@ -70,8 +68,8 @@ CLASS lhc_Item IMPLEMENTATION.
 
     CHECK items IS NOT INITIAL.
 
-    SELECT SINGLE FROM zitems_r_1241
-    FIELDS MAX( ItemID )
+    SELECT SINGLE FROM zitems_1241
+    FIELDS MAX( item_id )
     INTO @DATA(max_ItemID).
 
     MODIFY ENTITIES OF zsales_r_1241 IN LOCAL MODE
@@ -86,8 +84,7 @@ CLASS lhc_Item IMPLEMENTATION.
   METHOD discontinueItem.
 
     READ ENTITIES OF zsales_r_1241 IN LOCAL MODE
-    ENTITY Sale
-    BY \_Items
+    ENTITY Item
     FIELDS ( DiscontinuedDate )
     WITH CORRESPONDING #( keys )
     RESULT DATA(items).

@@ -23,6 +23,8 @@ define behavior for ZITEMS_I_1241 alias Item
   use update;
   use delete;
 
+  field ( readonly ) ItemID;
+
   use action releaseItem;
   use action discontinueItem;
 
