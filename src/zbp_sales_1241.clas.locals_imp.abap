@@ -31,12 +31,30 @@ CLASS lhc_Sales DEFINITION INHERITING FROM cl_abap_behavior_handler.
 
     methods rejectOrder for modify
         importing keys for action Sale~rejectOrder result result.
+    methods setCreationDate for determine on modify
+      importing keys for Sale~setCreationDate.
 
 ENDCLASS.
 
 CLASS lhc_Sales IMPLEMENTATION.
 
   METHOD get_instance_features.
+
+    READ ENTITIES OF zsales_r_1241 IN LOCAL MODE
+    ENTITY Sale
+    FIELDS ( OrderStatus )
+    WITH CORRESPONDING #( keys )
+    RESULT DATA(sales).
+
+    result = VALUE #( FOR sale IN sales ( %tky                = sale-%tky
+                                          %action-rejectOrder = COND #( WHEN sale-OrderStatus = sales_order_status-rejected OR
+                                                                             sale-OrderStatus = sales_order_status-completed
+                                                                        THEN if_abap_behv=>fc-o-disabled
+                                                                        ELSE if_abap_behv=>fc-o-enabled )
+                                          %assoc-_Items       = COND #( WHEN sale-OrderStatus = sales_order_status-rejected
+                                                                        THEN if_abap_behv=>fc-o-disabled
+                                                                        ELSE if_abap_behv=>fc-o-enabled ) ) ).
+
   ENDMETHOD.
 
   METHOD get_instance_authorizations.
@@ -77,7 +95,7 @@ CLASS lhc_Sales IMPLEMENTATION.
     WITH CORRESPONDING #( keys )
     RESULT DATA(sales).
 
-    DELETE sales WHERE OrderStatus IS NOT INITIAL.
+    DELETE sales WHERE SalesID IS NOT INITIAL.
 
     CHECK sales IS NOT INITIAL.
 
@@ -95,6 +113,45 @@ CLASS lhc_Sales IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD rejectorder.
+
+    READ ENTITIES OF zsales_r_1241 IN LOCAL MODE
+    ENTITY Sale
+    FIELDS ( OrderStatus )
+    WITH CORRESPONDING #( keys )
+    RESULT DATA(sales).
+
+    DELETE sales WHERE OrderStatus EQ 3.
+    DELETE sales WHERE OrderStatus EQ 4.
+
+    CHECK sales IS NOT INITIAL.
+
+    MODIFY ENTITIES OF zsales_r_1241 IN LOCAL MODE
+    ENTITY Sale
+    UPDATE
+    FIELDS ( OrderStatus )
+    WITH VALUE #( FOR sale IN sales ( %tky        = sale-%tky
+                                      OrderStatus = 4 ) ).
+
+  ENDMETHOD.
+
+  METHOD setCreationDate.
+
+    READ ENTITIES OF zsales_r_1241 IN LOCAL MODE
+    ENTITY Sale
+    FIELDS ( CreatedOn )
+    WITH CORRESPONDING #( keys )
+    RESULT DATA(sales).
+
+    DELETE sales WHERE CreatedOn IS NOT INITIAL.
+
+    CHECK sales IS NOT INITIAL.
+
+    MODIFY ENTITIES OF zsales_r_1241 IN LOCAL MODE
+    ENTITY Sale
+    UPDATE
+    FIELDS ( CreatedOn )
+    WITH VALUE #( FOR sale IN sales ( %tky      = sale-%tky
+                                      CreatedOn = cl_abap_context_info=>get_system_date(  ) ) ).
 
   ENDMETHOD.
 

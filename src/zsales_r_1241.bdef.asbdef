@@ -79,11 +79,12 @@ etag master LocalLastChangedAt
   association _Sales { with draft; }
 
   field ( numbering : managed, readonly ) ItemUUID;
-  field ( readonly ) SalesUUID, ItemID, ReleaseDate;
+  field ( readonly ) SalesUUID, ItemID, ReleaseDate, DiscontinuedDate;
 
   determination setItemID on save { create; }
 
   action ( features : instance, authorization : update ) releaseItem result [1] $self;
+  action ( features : instance, authorization : update ) discontinueItem result [1] $self;
 
   mapping for zitems_1241
     {

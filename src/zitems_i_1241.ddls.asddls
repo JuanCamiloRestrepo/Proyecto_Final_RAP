@@ -27,5 +27,6 @@ define view entity ZITEMS_I_1241
     
     /* Associations */
     _Sales : redirected to parent ZSALES_I_1241,
-    _UOM
+    _UOM,
+    _Currency
 }

@@ -6,7 +6,7 @@ define view entity ZITEMS_R_1241
   as select from zitems_1241
   
   association to parent ZSALES_R_1241 as _Sales on $projection.SalesUUID = _Sales.SalesUUID 
-  association [0..1] to I_UnitOfMeasure as _UOM on $projection.UOM = _UOM.UnitOfMeasure
+  association [0..1] to ZUOM_LENGTH_1241 as _UOM on $projection.UOM = _UOM.uom
   association [0..1] to I_Currency as _Currency on $projection.Currency = _Currency.Currency
   
 {
@@ -37,3 +37,4 @@ define view entity ZITEMS_R_1241
       _UOM,
       _Currency
 }
+

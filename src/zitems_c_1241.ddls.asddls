@@ -20,6 +20,10 @@ define view entity ZITEMS_C_1241
       DiscontinuedDate,
       @Semantics.amount.currencyCode: 'Currency'
       Price,
+      
+      @Consumption.valueHelpDefinition: [{ entity: { name: 'I_CurrencyStdVH',
+                                                     element: 'Currency' },
+                                           useForValidation: true }]
       Currency,
       @Semantics.quantity.unitOfMeasure: 'UOM'
       Height,
@@ -29,8 +33,9 @@ define view entity ZITEMS_C_1241
       Depth,
       Quantity,
       
-      @Consumption.valueHelpDefinition: [{ entity: { name: 'I_UnitOfMeasureStdVH',
-                                                     element: 'UnitOfMeasure' },
+      @ObjectModel.foreignKey.association: '_UOM'
+      @Consumption.valueHelpDefinition: [{ entity: { name: 'ZUOM_LENGTH_1241',
+                                                     element: 'uom' },
                                            useForValidation: true }]
       UOM,
       

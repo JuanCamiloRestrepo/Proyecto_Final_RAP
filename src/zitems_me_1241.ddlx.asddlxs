@@ -17,53 +17,54 @@ annotate entity ZITEMS_C_1241
     SalesUUID;
     
     @UI: { lineItem: [{ position: 10, importance: #HIGH },
-                      { position: 10, importance: #HIGH, type: #FOR_ACTION, dataAction: 'releaseItem', label: 'Release Item' }],
-           identification: [{ position: 10, label: 'SalesID' },
+                      { position: 10, importance: #HIGH, type: #FOR_ACTION, dataAction: 'releaseItem', label: 'Release Item' },
+                      { position: 20, importance: #HIGH, type: #FOR_ACTION, dataAction: 'discontinueItem', label: 'Discontinue Item' }],
+           identification: [{ position: 10, label: 'ItemID' },
                             { position: 10, type: #FOR_ACTION, dataAction: 'releaseItem', label: 'Release Item' }],
            selectionField: [{ position: 10 }] }
     ItemID;
     
     @UI: { lineItem: [{ position: 20, importance: #HIGH }],
-           identification: [{ position: 20 }] }
+           identification: [{ position: 20, label: 'Name' }] }
     Name;
     
     @UI: { lineItem: [{ position: 30, importance: #HIGH }],
-           identification: [{ position: 30 }] }
+           identification: [{ position: 30, label: 'Description' }] }
     Description;
     
     @UI: { lineItem: [{ position: 40, importance: #HIGH }],
-           identification: [{ position: 40 }] }
+           identification: [{ position: 40, label: 'Release Date' }] }
     ReleaseDate;
     
     @UI: { lineItem: [{ position: 50, importance: #HIGH }],
-           identification: [{ position: 50 }] }
+           identification: [{ position: 50, label: 'Discontinued Date' }] }
     DiscontinuedDate;
     
     @UI: { lineItem: [{ position: 60, importance: #HIGH }],
-           identification: [{ position: 60 }] }
+           identification: [{ position: 60, label: 'Price' }] }
     Price;
     
     @UI.hidden: true
     Currency;
     
     @UI: { lineItem: [{ position: 70, importance: #HIGH }],
-           identification: [{ position: 70 }] }
+           identification: [{ position: 70, label: 'Height' }] }
     Height;
     
     @UI: { lineItem: [{ position: 80, importance: #HIGH }],
-           identification: [{ position: 80 }] }
+           identification: [{ position: 80, label: 'Width' }] }
     Width;
     
     @UI: { lineItem: [{ position: 90, importance: #HIGH }],
-           identification: [{ position: 90 }] }
+           identification: [{ position: 90, label: 'Depth' }] }
     Depth;
     
     @UI: { lineItem: [{ position: 100, importance: #HIGH }],
-           identification: [{ position: 100 }] }
+           identification: [{ position: 100, label: 'Quantity' }] }
     Quantity;
     
     @UI: { lineItem: [{ position: 110, importance: #HIGH }],
-           identification: [{ position: 110 }] }
+           identification: [{ position: 110, label: 'Unit Of Measure' }] }
     UOM;
     
     @UI.hidden: true

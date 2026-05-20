@@ -5,6 +5,9 @@ define root view entity ZSALES_R_1241
   as select from zsalesorder_1241
  
     composition [0..*] of ZITEMS_R_1241 as _Items
+    
+    association [0..1] to zstatustext_1241 as _SalesDoc on $projection.OrderStatus = _SalesDoc.orderstatus
+    association [0..1] to I_Country as _Country on $projection.Country = _Country.Country 
 
 {
   key sales_uuid   as SalesUUID,
@@ -33,5 +36,7 @@ define root view entity ZSALES_R_1241
       @Semantics.systemDateTime.lastChangedAt: true
       last_changed_at       as LastChangedAt,
      
-      _Items
+      _Items,
+      _SalesDoc,
+      _Country
 }

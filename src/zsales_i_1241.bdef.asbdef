@@ -24,6 +24,7 @@ define behavior for ZITEMS_I_1241 alias Item
   use delete;
 
   use action releaseItem;
+  use action discontinueItem;
 
   use association _Sales { with draft; }
 }

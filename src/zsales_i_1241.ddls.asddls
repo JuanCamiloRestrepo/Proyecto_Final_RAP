@@ -23,5 +23,7 @@ define root view entity ZSALES_I_1241
     LastChangedAt,
     
     /* Associations */
-    _Items : redirected to composition child ZITEMS_I_1241
+    _Items : redirected to composition child ZITEMS_I_1241,
+    _SalesDoc,
+    _Country
 }

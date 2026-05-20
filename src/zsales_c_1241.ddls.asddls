@@ -21,11 +21,23 @@ define root view entity ZSALES_C_1241
       LastName,
       
       @Search.defaultSearchElement: true
+      @ObjectModel.text.element: [ 'CountryName' ]
+      @Consumption.valueHelpDefinition: [{ entity: { name: 'I_Country',
+                                                     element: 'Country' },
+                                           useForValidation: true }]
       Country,
+      _Country._Text.CountryName as CountryName : localized, 
       
       CreatedOn,
       DeliveryDate,
+      
+      @ObjectModel.text.element: [ 'OrderStatusText' ]
+      @Consumption.valueHelpDefinition: [{ entity: { name: 'ZSTATUS_VH_1241',
+                                                     element: 'Orderstatus' },
+                                           useForValidation: true }]
       OrderStatus,
+      _SalesDoc.orderstatustext as OrderStatusText,
+      
       ImageUrl,
       
       LocalCreatedBy,
@@ -35,5 +47,7 @@ define root view entity ZSALES_C_1241
       LastChangedAt,
       
       /* Associations */
-      _Items : redirected to composition child ZITEMS_C_1241
+      _Items : redirected to composition child ZITEMS_C_1241,
+      _SalesDoc,
+      _Country
 }

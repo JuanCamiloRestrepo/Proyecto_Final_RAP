@@ -9,52 +9,53 @@
                                visualizations: [{ type: #AS_LINEITEM }] }] }
 annotate entity ZSALES_C_1241 with
 {
-  @UI.facet: [{ id: 'Sales Order', purpose: #STANDARD, type: #IDENTIFICATION_REFERENCE, label: 'Sales Order', position: 10 },
+  @UI.facet: [{ id: 'SalesOrder', purpose: #STANDARD, type: #IDENTIFICATION_REFERENCE, label: 'Sales Order', position: 10 },
               { id: 'Items', purpose: #STANDARD, type: #LINEITEM_REFERENCE, label: 'Items', position: 20, targetElement: '_Items' }]
   
   @UI.hidden: true
   SalesUUID;            
               
   @UI: { lineItem: [{ position: 10, importance: #HIGH },
-                 { position: 10, importance: #HIGH, type: #FOR_ACTION, dataAction: 'rejectOrder', label: 'Reject Order' }],
+                    { position: 10, importance: #HIGH, type: #FOR_ACTION, dataAction: 'rejectOrder', label: 'Reject Order' }],
+         selectionField: [{ position: 10 }],
          identification: [{ position: 10, label: 'SalesID' },
-                          { position: 10, type: #FOR_ACTION, dataAction: 'rejectOrder', label: 'Reject Order' }],
-         selectionField: [{ position: 10 }] }
+                          { position: 10, type: #FOR_ACTION, dataAction: 'rejectOrder', label: 'Reject Order' }] }
   SalesID;
 
   @UI: { lineItem: [{ position: 20, importance: #HIGH }],
-         identification: [{ position: 20 }],
+         identification: [{ position: 20, label: 'Email' }],
          selectionField: [{ position: 20 }] }
   Email;
 
   @UI: { lineItem: [{ position: 30, importance: #HIGH }],
-         identification: [{ position: 30 }],
+         identification: [{ position: 30, label: 'Firstname' }],
          selectionField: [{ position: 30 }] }
   FirstName;
 
   @UI: { lineItem: [{ position: 40, importance: #HIGH }],
-         identification: [{ position: 40 }],
+         identification: [{ position: 40, label: 'Lastname' }],
          selectionField: [{ position: 40 }] }
   LastName;
 
-  @UI: { lineItem: [{ position: 50, importance: #HIGH }],
-         identification: [{ position: 50 }] }
+  @UI: { lineItem: [{ position: 50, importance: #MEDIUM }],
+         identification: [{ position: 50, label: 'Country' }] }
   Country;
 
-  @UI: { lineItem: [{ position: 60, importance: #HIGH }],
-         identification: [{ position: 60 }] }
+  @UI: { lineItem: [{ position: 60, importance: #MEDIUM }],
+         identification: [{ position: 60, label: 'Created On' }] }
   CreatedOn;
 
-  @UI: { lineItem: [{ position: 70, importance: #HIGH }],
-         identification: [{ position: 70 }] }
+  @UI: { lineItem: [{ position: 70, importance: #MEDIUM }],
+         identification: [{ position: 70, label: 'Delivery Date' }] }
   DeliveryDate;
 
-  @UI: { lineItem: [{ position: 80, importance: #HIGH }],
-         identification: [{ position: 80 }] }
+  @UI: { lineItem: [{ position: 80, importance: #MEDIUM }],
+         identification: [{ position: 80, label: 'Order Status' }],
+         textArrangement: #TEXT_ONLY }
   OrderStatus;
 
-  @UI: { lineItem: [{ position: 90, importance: #HIGH }],
-         identification: [{ position: 90 }] }
+  @UI: { lineItem: [{ position: 90, importance: #MEDIUM }],
+         identification: [{ position: 90, label: 'Image URL' }] }
   ImageUrl;
   
   @UI.hidden: true
