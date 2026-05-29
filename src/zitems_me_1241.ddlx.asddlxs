@@ -30,6 +30,7 @@ annotate entity ZITEMS_C_1241
     
     @UI: { lineItem: [{ position: 30, importance: #HIGH }],
            identification: [{ position: 30, label: 'Description' }] }
+    @UI.multiLineText: true
     Description;
     
     @UI: { lineItem: [{ position: 40, importance: #HIGH }],

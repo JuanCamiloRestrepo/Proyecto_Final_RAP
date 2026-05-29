@@ -4,7 +4,8 @@
            typeNamePlural: 'Sales',
            title: {
                type: #STANDARD,
-               value: 'SalesID' } },
+               value: 'SalesID' },
+           typeImageUrl: 'ImageUrl' },
        presentationVariant: [{ sortOrder: [{ by: 'SalesID', direction: #DESC }],
                                visualizations: [{ type: #AS_LINEITEM }] }] }
 annotate entity ZSALES_C_1241 with

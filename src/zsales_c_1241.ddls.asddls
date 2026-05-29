@@ -39,7 +39,7 @@ define root view entity ZSALES_C_1241
       _SalesDoc.orderstatustext as OrderStatusText,
       
       ImageUrl,
-      
+            
       LocalCreatedBy,
       LocalCreatedAt,
       LocalLastChangedBy,

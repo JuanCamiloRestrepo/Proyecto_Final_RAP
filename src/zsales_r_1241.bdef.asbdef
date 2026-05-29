@@ -34,6 +34,14 @@ authorization master ( instance, global )
 
   action ( features : instance, authorization : update ) rejectOrder result [1] $self;
 
+  validation validateDelivery on save { create; field DeliveryDate; }
+
+  determine action validateDeliveryDate { validation validateDelivery; }
+
+  side effects {
+    determine action validateDeliveryDate executed on field DeliveryDate affects messages;
+  }
+
   draft action edit;
   draft action activate optimized;
   draft action discard;
@@ -41,7 +49,7 @@ authorization master ( instance, global )
 
   draft determine action prepare
   {
-
+    validation validateDelivery;
   }
 
   mapping for zsalesorder_1241
@@ -83,6 +91,7 @@ etag master LocalLastChangedAt
   field ( readonly : update ) ItemID;
 
   determination setItemID on modify { create; }
+  determination setCurrency on modify { create; }
 
   action ( features : instance, authorization : update ) releaseItem result [1] $self;
   action ( features : instance, authorization : update ) discontinueItem result [1] $self;

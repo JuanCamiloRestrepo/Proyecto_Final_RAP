@@ -33,6 +33,8 @@ CLASS lhc_Sales DEFINITION INHERITING FROM cl_abap_behavior_handler.
         importing keys for action Sale~rejectOrder result result.
     methods setCreationDate for determine on modify
       importing keys for Sale~setCreationDate.
+    methods validateDelivery for validate on save
+      importing keys for Sale~validateDelivery.
 
 ENDCLASS.
 
@@ -132,6 +134,15 @@ CLASS lhc_Sales IMPLEMENTATION.
     WITH VALUE #( FOR sale IN sales ( %tky        = sale-%tky
                                       OrderStatus = 4 ) ).
 
+    READ ENTITIES OF zsales_r_1241 IN LOCAL MODE
+    ENTITY Sale
+    ALL FIELDS
+    WITH CORRESPONDING #( keys )
+    RESULT sales.
+
+    result = VALUE #( FOR sale IN sales ( %tky   = sale-%tky
+                                          %param = sale ) ).
+
   ENDMETHOD.
 
   METHOD setCreationDate.
@@ -152,6 +163,41 @@ CLASS lhc_Sales IMPLEMENTATION.
     FIELDS ( CreatedOn )
     WITH VALUE #( FOR sale IN sales ( %tky      = sale-%tky
                                       CreatedOn = cl_abap_context_info=>get_system_date(  ) ) ).
+
+  ENDMETHOD.
+
+  METHOD validateDelivery.
+
+    READ ENTITIES OF zsales_r_1241 IN LOCAL MODE
+    ENTITY Sale
+    FIELDS ( DeliveryDate )
+    WITH CORRESPONDING #( keys )
+    RESULT DATA(sales).
+
+    DELETE sales WHERE DeliveryDate IS INITIAL.
+
+    LOOP AT sales INTO DATA(sale).
+
+        IF sale-DeliveryDate LE cl_abap_context_info=>get_system_date(  ).
+
+            APPEND VALUE #(
+                %tky = sale-%tky
+            ) TO failed-sale.
+
+            APPEND VALUE #(
+                %tky = sale-%tky
+                %msg = new_message(
+                    id       = 'ZSALES_MSG'
+                    number   = '001'
+                    severity = if_abap_behv_message=>severity-error
+                    v1       = 'Delivery Date must to be greater than today'
+                )
+                %element-DeliveryDate = if_abap_behv=>mk-on
+            ) TO reported-sale.
+
+        ENDIF.
+
+    ENDLOOP.
 
   ENDMETHOD.
 
